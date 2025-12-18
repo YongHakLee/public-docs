@@ -1,0 +1,387 @@
+/* ==========================================================================
+   블록체인 이상징후 탐지 연구 보고서 - 메인 스타일시트
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS 변수 (Custom Properties) - 라이트 모드
+   ========================================================================== */
+:root {
+    /* 색상 팔레트 */
+    --color-primary: #1a365d;
+    --color-primary-light: #2b4c7e;
+    --color-secondary: #2d3748;
+    --color-accent: #3182ce;
+    --color-accent-hover: #2c5282;
+
+    --color-bg: #ffffff;
+    --color-bg-alt: #f7fafc;
+    --color-bg-code: #1e1e1e;
+
+    --color-text: #1a202c;
+    --color-text-muted: #718096;
+    --color-text-inverse: #ffffff;
+
+    --color-border: #e2e8f0;
+    --color-border-dark: #cbd5e0;
+
+    /* 테이블 색상 */
+    --color-table-header: #1a365d;
+    --color-table-row-alt: #f7fafc;
+    --color-table-hover: #edf2f7;
+    --color-highlight: #c6f6d5;
+    --color-highlight-warning: #fed7d7;
+
+    /* 타이포그래피 */
+    --font-family-base: 'Pretendard', -apple-system, BlinkMacSystemFont,
+                        'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+    --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas',
+                        'D2Coding', monospace;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+
+    --line-height-tight: 1.25;
+    --line-height-base: 1.6;
+    --line-height-loose: 1.8;
+
+    /* 간격 */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+
+    /* 레이아웃 */
+    --content-max-width: 900px;
+    --toc-width: 280px;
+
+    /* 그림자 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* 반경 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* 트랜지션 */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* ==========================================================================
+   2. 다크 모드 변수
+   ========================================================================== */
+[data-theme="dark"] {
+    --color-primary: #63b3ed;
+    --color-primary-light: #90cdf4;
+    --color-secondary: #a0aec0;
+    --color-accent: #63b3ed;
+    --color-accent-hover: #4299e1;
+
+    --color-bg: #1a202c;
+    --color-bg-alt: #2d3748;
+    --color-bg-code: #171923;
+
+    --color-text: #e2e8f0;
+    --color-text-muted: #a0aec0;
+    --color-text-inverse: #1a202c;
+
+    --color-border: #4a5568;
+    --color-border-dark: #718096;
+
+    --color-table-header: #2d3748;
+    --color-table-row-alt: #2d3748;
+    --color-table-hover: #4a5568;
+    --color-highlight: #276749;
+    --color-highlight-warning: #9b2c2c;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   3. 리셋 및 기본 스타일
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    transition: background-color var(--transition-normal),
+                color var(--transition-normal);
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==========================================================================
+   4. 레이아웃
+   ========================================================================== */
+
+/* 모바일 기본 */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 데스크톱: 사이드바 TOC */
+@media (min-width: 1200px) {
+    .page-wrapper {
+        display: grid;
+        grid-template-columns: var(--toc-width) 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            "header header"
+            "toc    main"
+            "footer footer";
+    }
+
+    .site-header { grid-area: header; }
+    .toc { grid-area: toc; }
+    .content { grid-area: main; }
+    .site-footer { grid-area: footer; }
+}
+
+/* ==========================================================================
+   5. 헤더
+   ========================================================================== */
+.site-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: var(--color-text-inverse);
+    padding: var(--spacing-3xl) var(--spacing-xl);
+    text-align: center;
+    position: relative;
+}
+
+[data-theme="dark"] .site-header {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+}
+
+.header__container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+}
+
+.header__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-inverse);
+    line-height: var(--line-height-tight);
+}
+
+@media (min-width: 768px) {
+    .header__title {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+.header__subtitle {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+    margin-bottom: var(--spacing-lg);
+}
+
+.header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    opacity: 0.85;
+}
+
+.meta__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* 다크 모드 토글 버튼 */
+.theme-toggle {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-text-inverse);
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle__icon--light,
+.theme-toggle__icon--dark {
+    display: none;
+}
+
+:root .theme-toggle__icon--light {
+    display: inline;
+}
+
+[data-theme="dark"] .theme-toggle__icon--light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--dark {
+    display: inline;
+}
+
+/* ==========================================================================
+   6. 메인 콘텐츠
+   ========================================================================== */
+.content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+@media (min-width: 1200px) {
+    .content {
+        padding: var(--spacing-2xl) var(--spacing-3xl);
+    }
+}
+
+.report {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   7. 타이포그래피
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: var(--line-height-tight);
+    color: var(--color-primary);
+}
+
+.section__title {
+    font-size: var(--font-size-2xl);
+    border-bottom: 3px solid var(--color-accent);
+    padding-bottom: var(--spacing-sm);
+    margin: var(--spacing-3xl) 0 var(--spacing-xl);
+}
+
+.section__title:first-child {
+    margin-top: 0;
+}
+
+.section__number {
+    color: var(--color-accent);
+}
+
+.subsection__title {
+    font-size: var(--font-size-xl);
+    margin: var(--spacing-2xl) 0 var(--spacing-lg);
+    color: var(--color-secondary);
+}
+
+[data-theme="dark"] .subsection__title {
+    color: var(--color-text);
+}
+
+.subsubsection__title {
+    font-size: var(--font-size-lg);
+    margin: var(--spacing-xl) 0 var(--spacing-md);
+    color: var(--color-secondary);
+}
+
+[data-theme="dark"] .subsubsection__title {
+    color: var(--color-text-muted);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+strong {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+[data-theme="dark"] strong {
+    color: var(--color-accent);
+}
+
+/* 인라인 코드 */
+code:not(.code__content) {
+    background: var(--color-bg-alt);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+}
+
+/* 구분선 */
+hr {
+    border: none;
+    border-top: 2px solid var(--color-border);
+    margin: var(--spacing-2xl) 0;
+}
+
+/* ==========================================================================
+   8. 푸터
+   ========================================================================== */
+.site-footer {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-xl);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.site-footer a {
+    color: var(--color-accent);
+}

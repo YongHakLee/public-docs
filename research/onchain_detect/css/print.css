@@ -1,0 +1,352 @@
+/**
+ * 블록체인 이상징후 탐지 연구 보고서 - 인쇄용 스타일시트
+ */
+
+@media print {
+    /* ==========================================================================
+       1. 페이지 설정
+       ========================================================================== */
+    @page {
+        size: A4;
+        margin: 2cm 1.5cm;
+    }
+
+    @page :first {
+        margin-top: 1cm;
+    }
+
+    /* ==========================================================================
+       2. 기본 스타일 초기화
+       ========================================================================== */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    html {
+        font-size: 11pt;
+    }
+
+    body {
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.5;
+        display: block;
+    }
+
+    /* ==========================================================================
+       3. 불필요한 요소 숨김
+       ========================================================================== */
+    .toc,
+    .toc-toggle,
+    .toc-overlay,
+    .theme-toggle,
+    .site-footer,
+    nav,
+    button {
+        display: none !important;
+    }
+
+    /* ==========================================================================
+       4. 레이아웃
+       ========================================================================== */
+    .page-wrapper {
+        display: block;
+    }
+
+    .content {
+        padding: 0;
+        max-width: none;
+    }
+
+    .report {
+        max-width: none;
+    }
+
+    /* ==========================================================================
+       5. 헤더
+       ========================================================================== */
+    .site-header {
+        padding: 0 0 1cm 0;
+        margin-bottom: 1cm;
+        border-bottom: 2pt solid #000;
+        text-align: left;
+    }
+
+    .header__title {
+        font-size: 18pt;
+        margin-bottom: 0.3cm;
+    }
+
+    .header__subtitle {
+        font-size: 12pt;
+        margin-bottom: 0.5cm;
+    }
+
+    .header__meta {
+        font-size: 9pt;
+        justify-content: flex-start;
+        gap: 1cm;
+    }
+
+    /* ==========================================================================
+       6. 타이포그래피
+       ========================================================================== */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    .section__title {
+        font-size: 14pt;
+        margin-top: 1cm;
+        margin-bottom: 0.5cm;
+        border-bottom: 1pt solid #000;
+        padding-bottom: 0.2cm;
+    }
+
+    .subsection__title {
+        font-size: 12pt;
+        margin-top: 0.7cm;
+        margin-bottom: 0.4cm;
+    }
+
+    .subsubsection__title {
+        font-size: 11pt;
+        margin-top: 0.5cm;
+        margin-bottom: 0.3cm;
+    }
+
+    p {
+        orphans: 3;
+        widows: 3;
+        margin-bottom: 0.4cm;
+    }
+
+    /* ==========================================================================
+       7. 테이블
+       ========================================================================== */
+    .table-container {
+        page-break-inside: avoid;
+        margin: 0.5cm 0;
+        overflow: visible;
+    }
+
+    .table__caption {
+        font-size: 9pt;
+        font-weight: bold;
+        margin-bottom: 0.2cm;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9pt;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .data-table th,
+    .data-table td {
+        border: 0.5pt solid #000;
+        padding: 0.2cm;
+    }
+
+    .data-table thead {
+        background: #eee !important;
+    }
+
+    .data-table th {
+        font-weight: bold;
+    }
+
+    .data-table tbody tr:nth-child(even) {
+        background: #f5f5f5 !important;
+    }
+
+    .data-table .highlight {
+        background: #ddd !important;
+        font-weight: bold;
+    }
+
+    /* ==========================================================================
+       8. 코드 블록
+       ========================================================================== */
+    .code-block {
+        page-break-inside: avoid;
+        margin: 0.5cm 0;
+        border: 0.5pt solid #999;
+        border-radius: 0;
+    }
+
+    .code__caption {
+        background: #eee !important;
+        color: #000 !important;
+        font-size: 9pt;
+        padding: 0.2cm;
+        border-bottom: 0.5pt solid #999;
+    }
+
+    .code__pre {
+        background: #f9f9f9 !important;
+        padding: 0.3cm;
+        overflow: visible;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    .code__content {
+        color: #000 !important;
+        font-size: 8pt;
+        font-family: 'D2Coding', 'Consolas', monospace;
+    }
+
+    code:not(.code__content) {
+        background: #eee !important;
+        border: 0.5pt solid #ccc;
+        font-size: 9pt;
+    }
+
+    /* ==========================================================================
+       9. 인용문 / 정리
+       ========================================================================== */
+    .theorem,
+    .note {
+        page-break-inside: avoid;
+        margin: 0.5cm 0;
+        padding: 0.4cm;
+        border: 0.5pt solid #999;
+        border-left: 3pt solid #000;
+        background: #f9f9f9 !important;
+    }
+
+    .theorem__label,
+    .note__label {
+        font-weight: bold;
+        margin-bottom: 0.2cm;
+    }
+
+    /* ==========================================================================
+       10. 목록
+       ========================================================================== */
+    .content__list {
+        margin: 0.3cm 0;
+        padding-left: 0.8cm;
+    }
+
+    .content__list li {
+        margin-bottom: 0.15cm;
+    }
+
+    /* ==========================================================================
+       11. 핵심 결론 카드
+       ========================================================================== */
+    .key-findings {
+        display: block;
+        margin: 0.5cm 0;
+    }
+
+    .key-finding__card {
+        page-break-inside: avoid;
+        border: 0.5pt solid #999;
+        padding: 0.4cm;
+        margin-bottom: 0.3cm;
+    }
+
+    .key-finding__title {
+        font-size: 11pt;
+        margin-bottom: 0.2cm;
+    }
+
+    .key-finding__content {
+        font-size: 10pt;
+    }
+
+    /* ==========================================================================
+       12. 참고 문헌
+       ========================================================================== */
+    .sources {
+        page-break-before: always;
+        padding: 0;
+        background: none !important;
+    }
+
+    .sources__subtitle {
+        font-size: 11pt;
+        margin-top: 0.5cm;
+        margin-bottom: 0.3cm;
+        border-bottom: 0.5pt solid #999;
+        padding-bottom: 0.1cm;
+    }
+
+    .sources__list {
+        font-size: 9pt;
+    }
+
+    .sources__item {
+        margin-bottom: 0.15cm;
+    }
+
+    /* 링크 URL 표시 */
+    .sources__link::after {
+        content: " (" attr(href) ")";
+        font-size: 8pt;
+        color: #666 !important;
+        word-break: break-all;
+    }
+
+    /* ==========================================================================
+       13. 섹션 구분
+       ========================================================================== */
+    .report__section {
+        page-break-inside: auto;
+        margin-bottom: 0.8cm;
+    }
+
+    hr {
+        border: none;
+        border-top: 0.5pt solid #999;
+        margin: 0.5cm 0;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+        border: 0.5pt solid #999;
+        padding: 0.4cm;
+        margin-bottom: 0.5cm;
+    }
+
+    /* ==========================================================================
+       14. 페이지 나눔
+       ========================================================================== */
+    .report__section {
+        page-break-before: auto;
+        page-break-after: auto;
+    }
+
+    /* 주요 섹션 전에 페이지 나눔 */
+    #section-1,
+    #section-2,
+    #section-3,
+    #section-4,
+    #section-5 {
+        page-break-before: always;
+    }
+
+    /* 첫 번째 섹션은 페이지 나눔 없음 */
+    #executive-summary {
+        page-break-before: avoid;
+    }
+
+    figure,
+    blockquote,
+    table {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+}
