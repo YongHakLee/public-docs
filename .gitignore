@@ -1,1 +1,7 @@
 claudedocs/
+data/
+CLAUDE.md
+.python-version
+main.py
+.venv
+uv.lock

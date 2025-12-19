@@ -155,6 +155,28 @@
             </ul>
           </li>
           <li class="toc__item">
+            <a href="#section-6" class="toc__link">6. 학습 데이터셋</a>
+            <ul class="toc__sublist">
+              <li>
+                <a href="#section-6-1" class="toc__link">6.1 데이터셋 개요</a>
+              </li>
+              <li>
+                <a href="#section-6-2" class="toc__link">6.2 데이터 분석</a>
+              </li>
+              <li>
+                <a href="#section-6-3" class="toc__link">6.3 JSON 스키마</a>
+              </li>
+              <li>
+                <a href="#section-6-4" class="toc__link">6.4 보안 사고 분석</a>
+              </li>
+              <li>
+                <a href="#section-6-5" class="toc__link"
+                  >6.5 연구자 권장사항</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="toc__item">
             <a href="#sources" class="toc__link">Sources</a>
           </li>
         </ul>
@@ -1172,6 +1194,1169 @@ X_hat = soft_argmax(p)                       # 재구성</code></pre>
                   구축
                 </li>
               </ol>
+            </section>
+          </section>
+
+          <hr />
+
+          <!-- 섹션 6: 학습 데이터셋 -->
+          <section id="section-6" class="report__section">
+            <h2 class="section__title">
+              <span class="section__number">6.</span> 학습 데이터셋
+            </h2>
+
+            <p>
+              이 섹션에서는 BlockScan 모델 훈련에 사용된 Ethereum 트랜잭션 트레이스
+              데이터셋을 상세히 분석합니다. 데이터셋은 5개 프로토콜의 41,711개
+              트랜잭션으로 구성되며, 4건의 실제 보안 사고와 1개의 참조 데이터셋을
+              포함합니다.
+            </p>
+
+            <section id="section-6-1" class="report__subsection">
+              <h3 class="subsection__title">6.1 데이터셋 개요</h3>
+
+              <div class="key-findings">
+                <div class="key-finding__card">
+                  <h4 class="key-finding__title">총 트랜잭션</h4>
+                  <p class="key-finding__content">
+                    <strong style="font-size: 1.5rem">41,711</strong>건
+                  </p>
+                </div>
+                <div class="key-finding__card">
+                  <h4 class="key-finding__title">데이터 크기</h4>
+                  <p class="key-finding__content">
+                    <strong style="font-size: 1.5rem">706.4</strong> MB
+                  </p>
+                </div>
+                <div class="key-finding__card">
+                  <h4 class="key-finding__title">분석 프로젝트</h4>
+                  <p class="key-finding__content">
+                    <strong style="font-size: 1.5rem">5</strong>개
+                  </p>
+                </div>
+                <div class="key-finding__card">
+                  <h4 class="key-finding__title">악성 트랜잭션</h4>
+                  <p class="key-finding__content">
+                    <strong style="font-size: 1.5rem">10</strong>건 (0.02%)
+                  </p>
+                </div>
+              </div>
+
+              <figure class="table-container">
+                <figcaption class="table__caption">
+                  프로젝트별 트랜잭션 분포
+                </figcaption>
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>프로젝트</th>
+                      <th>파일 수</th>
+                      <th>비율</th>
+                      <th>크기</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>TrustSwap</strong></td>
+                      <td>30,146</td>
+                      <td>72.3%</td>
+                      <td>372.2 MB</td>
+                    </tr>
+                    <tr>
+                      <td><strong>NomadBridge</strong></td>
+                      <td>10,460</td>
+                      <td>25.1%</td>
+                      <td>312.8 MB</td>
+                    </tr>
+                    <tr>
+                      <td><strong>AudiusProject</strong></td>
+                      <td>876</td>
+                      <td>2.1%</td>
+                      <td>13.5 MB</td>
+                    </tr>
+                    <tr>
+                      <td><strong>SushiSwap</strong></td>
+                      <td>206</td>
+                      <td>0.5%</td>
+                      <td>4.0 MB</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ShataCapital</strong></td>
+                      <td>23</td>
+                      <td>0.05%</td>
+                      <td>3.9 MB</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+
+              <figure class="image-container">
+                <img
+                  src="data/docs/figures/distribution_by_project.png"
+                  alt="프로젝트별 트랜잭션 분포를 보여주는 막대 그래프"
+                  loading="lazy"
+                />
+                <figcaption class="image__caption">
+                  프로젝트별 트랜잭션 분포
+                </figcaption>
+              </figure>
+
+              <figure class="table-container">
+                <figcaption class="table__caption">레이블별 분포</figcaption>
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>레이블</th>
+                      <th>개수</th>
+                      <th>비율</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>정상 (Benign)</strong></td>
+                      <td>38,023</td>
+                      <td>91.2%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>제외 (Excluded)</strong></td>
+                      <td>3,678</td>
+                      <td>8.8%</td>
+                    </tr>
+                    <tr>
+                      <td><strong>악성 (Malicious)</strong></td>
+                      <td>10</td>
+                      <td>0.02%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+
+              <figure class="image-container">
+                <img
+                  src="data/docs/figures/distribution_by_label.png"
+                  alt="레이블별 트랜잭션 분포를 보여주는 차트"
+                  loading="lazy"
+                />
+                <figcaption class="image__caption">레이블별 분포</figcaption>
+              </figure>
+
+              <figure class="table-container">
+                <figcaption class="table__caption">
+                  프로젝트별 레이블 분포
+                </figcaption>
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>프로젝트</th>
+                      <th>정상</th>
+                      <th>악성</th>
+                      <th>제외</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>NomadBridge</strong></td>
+                      <td>9,915</td>
+                      <td><span class="highlight-warning">4</span></td>
+                      <td>541</td>
+                    </tr>
+                    <tr>
+                      <td><strong>TrustSwap</strong></td>
+                      <td>27,024</td>
+                      <td>0</td>
+                      <td>3,122</td>
+                    </tr>
+                    <tr>
+                      <td><strong>AudiusProject</strong></td>
+                      <td>865</td>
+                      <td><span class="highlight-warning">2</span></td>
+                      <td>9</td>
+                    </tr>
+                    <tr>
+                      <td><strong>SushiSwap</strong></td>
+                      <td>199</td>
+                      <td><span class="highlight-warning">2</span></td>
+                      <td>5</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ShataCapital</strong></td>
+                      <td>20</td>
+                      <td><span class="highlight-warning">2</span></td>
+                      <td>1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </figure>
+
+              <blockquote class="note">
+                <p class="note__label">클래스 불균형 주의</p>
+                <p class="note__content">
+                  데이터셋은 극심한 클래스 불균형을 보입니다. 악성 트랜잭션은
+                  전체의 0.02% (10건)에 불과하며, 이는 실제 블록체인 환경을
+                  반영합니다. ML 모델 훈련 시 이 불균형을 고려한 전략이
+                  필요합니다.
+                </p>
+              </blockquote>
+            </section>
+
+            <section id="section-6-2" class="report__subsection">
+              <h3 class="subsection__title">6.2 데이터 분석</h3>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">파일 크기 분포</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    파일 크기 통계 요약
+                  </figcaption>
+                  <table class="data-table data-table--metrics">
+                    <thead>
+                      <tr>
+                        <th>메트릭</th>
+                        <th>값</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>최소</strong></td>
+                        <td>~1 KB</td>
+                      </tr>
+                      <tr>
+                        <td><strong>최대</strong></td>
+                        <td>~500+ KB</td>
+                      </tr>
+                      <tr>
+                        <td><strong>평균</strong></td>
+                        <td>~17 KB</td>
+                      </tr>
+                      <tr>
+                        <td><strong>중앙값</strong></td>
+                        <td>~10 KB</td>
+                      </tr>
+                      <tr>
+                        <td><strong>표준편차</strong></td>
+                        <td>~25 KB</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <figure class="image-container">
+                  <img
+                    src="data/docs/figures/file_size_histogram.png"
+                    alt="파일 크기 분포 히스토그램"
+                    loading="lazy"
+                  />
+                  <figcaption class="image__caption">
+                    파일 크기 분포 (우측으로 치우친 분포)
+                  </figcaption>
+                </figure>
+
+                <p>
+                  파일 크기는 우측으로 치우친 분포를 보입니다. 대부분의 트랜잭션은
+                  상대적으로 작지만, 복잡한 트랜잭션(특히 익스플로잇)은 상당히 큰
+                  트레이스를 생성합니다.
+                </p>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">콜 깊이 분석</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    프로젝트별 콜 깊이
+                  </figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>프로젝트</th>
+                        <th>평균 깊이</th>
+                        <th>최대 깊이</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>NomadBridge</strong></td>
+                        <td>4.2</td>
+                        <td>12</td>
+                      </tr>
+                      <tr>
+                        <td><strong>TrustSwap</strong></td>
+                        <td>3.1</td>
+                        <td>8</td>
+                      </tr>
+                      <tr>
+                        <td><strong>AudiusProject</strong></td>
+                        <td>5.8</td>
+                        <td>15</td>
+                      </tr>
+                      <tr>
+                        <td><strong>SushiSwap</strong></td>
+                        <td>4.5</td>
+                        <td>10</td>
+                      </tr>
+                      <tr>
+                        <td><strong>ShataCapital</strong></td>
+                        <td>6.2</td>
+                        <td>14</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <figure class="image-container">
+                  <img
+                    src="data/docs/figures/call_depth_boxplot.png"
+                    alt="프로젝트별 콜 깊이 박스플롯"
+                    loading="lazy"
+                  />
+                  <figcaption class="image__caption">
+                    프로젝트별 콜 깊이 분석
+                  </figcaption>
+                </figure>
+
+                <p>
+                  프록시 패턴을 사용하는 프로토콜(Audius, Shata)은 delegate call
+                  체인으로 인해 더 깊은 콜 스택을 보입니다.
+                </p>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">콜 타입 분포</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">EVM 콜 타입별 분포</figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>콜 타입</th>
+                        <th>비율</th>
+                        <th>설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>CALL</strong></td>
+                        <td>~60%</td>
+                        <td>외부 호출</td>
+                      </tr>
+                      <tr>
+                        <td><strong>STATICCALL</strong></td>
+                        <td>~25%</td>
+                        <td>읽기 전용 쿼리</td>
+                      </tr>
+                      <tr>
+                        <td><strong>DELEGATECALL</strong></td>
+                        <td>~12%</td>
+                        <td>프록시 패턴 호출</td>
+                      </tr>
+                      <tr>
+                        <td><strong>CREATE</strong></td>
+                        <td>~2%</td>
+                        <td>컨트랙트 배포</td>
+                      </tr>
+                      <tr>
+                        <td><strong>CREATE2</strong></td>
+                        <td>~1%</td>
+                        <td>결정적 주소 배포</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <figure class="image-container">
+                  <img
+                    src="data/docs/figures/call_type_donut.png"
+                    alt="콜 타입 분포 도넛 차트"
+                    loading="lazy"
+                  />
+                  <figcaption class="image__caption">
+                    콜 타입 분포
+                  </figcaption>
+                </figure>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">가스 사용량 분석</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    정상 vs 악성 트랜잭션 가스 비교
+                  </figcaption>
+                  <table class="data-table data-table--metrics">
+                    <thead>
+                      <tr>
+                        <th>카테고리</th>
+                        <th>평균 가스</th>
+                        <th>중앙값 가스</th>
+                        <th>최대 가스</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>정상</strong></td>
+                        <td>~150,000</td>
+                        <td>~120,000</td>
+                        <td>~500,000</td>
+                      </tr>
+                      <tr>
+                        <td><strong>악성</strong></td>
+                        <td><span class="highlight-warning">~250,000</span></td>
+                        <td><span class="highlight-warning">~200,000</span></td>
+                        <td><span class="highlight-warning">~800,000</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <figure class="image-container">
+                  <img
+                    src="data/docs/figures/gas_comparison.png"
+                    alt="정상 vs 악성 트랜잭션 가스 사용량 비교 차트"
+                    loading="lazy"
+                  />
+                  <figcaption class="image__caption">
+                    정상 vs 악성 트랜잭션 가스 사용량 비교
+                  </figcaption>
+                </figure>
+
+                <blockquote class="theorem">
+                  <p class="theorem__label"><strong>핵심 발견</strong></p>
+                  <p class="theorem__content">
+                    악성 트랜잭션은 복잡한 익스플로잇 로직과 다중 내부 호출로 인해
+                    정상 트랜잭션보다 1.5~2배 더 많은 가스를 소비합니다. 이는
+                    이상징후 탐지에 중요한 피처가 될 수 있습니다.
+                  </p>
+                </blockquote>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">프로젝트별 데이터 크기</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    프로젝트별 데이터 크기 비교
+                  </figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>프로젝트</th>
+                        <th>크기 (MB)</th>
+                        <th>평균 파일 크기 (KB)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>TrustSwap</strong></td>
+                        <td>372.2</td>
+                        <td>12.3</td>
+                      </tr>
+                      <tr>
+                        <td><strong>NomadBridge</strong></td>
+                        <td>312.8</td>
+                        <td>29.9</td>
+                      </tr>
+                      <tr>
+                        <td><strong>AudiusProject</strong></td>
+                        <td>13.5</td>
+                        <td>15.4</td>
+                      </tr>
+                      <tr>
+                        <td><strong>SushiSwap</strong></td>
+                        <td>4.0</td>
+                        <td>19.4</td>
+                      </tr>
+                      <tr>
+                        <td><strong>ShataCapital</strong></td>
+                        <td>3.9</td>
+                        <td>169.6</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <figure class="image-container">
+                  <img
+                    src="data/docs/figures/project_size_comparison.png"
+                    alt="프로젝트별 데이터 크기 비교 차트"
+                    loading="lazy"
+                  />
+                  <figcaption class="image__caption">
+                    프로젝트별 데이터 크기 비교
+                  </figcaption>
+                </figure>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">스토리지 연산 분포</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    READ vs WRITE 연산 비율
+                  </figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>연산</th>
+                        <th>비율</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>READ</strong></td>
+                        <td>~85%</td>
+                      </tr>
+                      <tr>
+                        <td><strong>WRITE</strong></td>
+                        <td>~15%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  대부분의 트랜잭션은 읽기 위주입니다. WRITE 연산은 악성
+                  트랜잭션에서 더 빈번하게 나타나며, 특히 중요한 상태 변수 수정이
+                  포함됩니다.
+                </p>
+              </section>
+            </section>
+
+            <section id="section-6-3" class="report__subsection">
+              <h3 class="subsection__title">6.3 JSON 스키마</h3>
+
+              <p>
+                각 트랜잭션 트레이스는 JSON 형식으로 저장됩니다. 파일명은
+                <code>&lt;block_number&gt;-&lt;transaction_index&gt;.json</code>
+                형식을 따릅니다.
+              </p>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">루트 구조</h4>
+
+                <figure class="code-block code-block--json">
+                  <figcaption class="code__caption">JSON 루트 구조</figcaption>
+                  <pre class="code__pre"><code class="code__content">{
+  "&lt;transaction_hash&gt;": [&lt;call_object&gt;, ...]
+}</code></pre>
+                </figure>
+
+                <ul class="content__list">
+                  <li>
+                    <strong>Key</strong>: 전체 트랜잭션 해시 (0x 접두사 포함, 66자)
+                  </li>
+                  <li>
+                    <strong>Value</strong>: 루트 레벨 콜 객체 배열 (일반적으로 1개)
+                  </li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">Call 객체</h4>
+
+                <figure class="code-block code-block--json">
+                  <figcaption class="code__caption">Call 객체 구조</figcaption>
+                  <pre class="code__pre"><code class="code__content">{
+  "type": "CALL",
+  "from": "0x...",
+  "to": "0x...",
+  "gas": 349591,
+  "gasUsed": 263706,
+  "func": "0x37c8f01a",
+  "args": [...],
+  "argsNotParsed": false,
+  "output": [...],
+  "calls": [...],
+  "logs": [...],
+  "state": [...],
+  "value": 0.0
+}</code></pre>
+                </figure>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">
+                    Call 객체 필드 참조
+                  </figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>필드</th>
+                        <th>타입</th>
+                        <th>필수</th>
+                        <th>설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>type</code></td>
+                        <td>string</td>
+                        <td>예</td>
+                        <td>콜 opcode 타입</td>
+                      </tr>
+                      <tr>
+                        <td><code>from</code></td>
+                        <td>string</td>
+                        <td>예</td>
+                        <td>발신자 주소</td>
+                      </tr>
+                      <tr>
+                        <td><code>to</code></td>
+                        <td>string</td>
+                        <td>예</td>
+                        <td>수신자 주소</td>
+                      </tr>
+                      <tr>
+                        <td><code>gas</code></td>
+                        <td>integer</td>
+                        <td>예</td>
+                        <td>가스 한도</td>
+                      </tr>
+                      <tr>
+                        <td><code>gasUsed</code></td>
+                        <td>integer</td>
+                        <td>예</td>
+                        <td>실제 소비된 가스</td>
+                      </tr>
+                      <tr>
+                        <td><code>func</code></td>
+                        <td>string|null</td>
+                        <td>아니오</td>
+                        <td>함수 셀렉터 (4바이트)</td>
+                      </tr>
+                      <tr>
+                        <td><code>args</code></td>
+                        <td>array|null</td>
+                        <td>아니오</td>
+                        <td>디코딩된 함수 인자</td>
+                      </tr>
+                      <tr>
+                        <td><code>output</code></td>
+                        <td>array|null</td>
+                        <td>아니오</td>
+                        <td>반환 값</td>
+                      </tr>
+                      <tr>
+                        <td><code>calls</code></td>
+                        <td>array|null</td>
+                        <td>아니오</td>
+                        <td>중첩된 내부 콜 (재귀적)</td>
+                      </tr>
+                      <tr>
+                        <td><code>logs</code></td>
+                        <td>array|null</td>
+                        <td>아니오</td>
+                        <td>발생된 이벤트 로그</td>
+                      </tr>
+                      <tr>
+                        <td><code>state</code></td>
+                        <td>array|null</td>
+                        <td>아니오</td>
+                        <td>스토리지 연산</td>
+                      </tr>
+                      <tr>
+                        <td><code>value</code></td>
+                        <td>number|null</td>
+                        <td>아니오</td>
+                        <td>전송된 ETH (ETH 단위)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">콜 타입</h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">EVM 콜 타입 설명</figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>타입</th>
+                        <th>설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>CALL</code></td>
+                        <td>표준 외부 호출, ETH 전송 가능</td>
+                      </tr>
+                      <tr>
+                        <td><code>STATICCALL</code></td>
+                        <td>읽기 전용 호출, 상태 변경 불가</td>
+                      </tr>
+                      <tr>
+                        <td><code>DELEGATECALL</code></td>
+                        <td>호출자의 컨텍스트에서 코드 실행</td>
+                      </tr>
+                      <tr>
+                        <td><code>CALLCODE</code></td>
+                        <td>DELEGATECALL의 레거시 버전</td>
+                      </tr>
+                      <tr>
+                        <td><code>CREATE</code></td>
+                        <td>새 컨트랙트 배포</td>
+                      </tr>
+                      <tr>
+                        <td><code>CREATE2</code></td>
+                        <td>결정적 주소로 컨트랙트 배포</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">State 객체</h4>
+
+                <figure class="code-block code-block--json">
+                  <figcaption class="code__caption">
+                    스토리지 연산 구조
+                  </figcaption>
+                  <pre class="code__pre"><code class="code__content">{
+  "type": "READ",
+  "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+  "key": "0xcb35f6ffed66be2678de421a2bf25c9b321b46e17ebb4f1b5cb2fc9dfee70e8e",
+  "value": "0x17f0da170f"
+}</code></pre>
+                </figure>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">State 필드 참조</figcaption>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>필드</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>type</code></td>
+                        <td>string</td>
+                        <td><code>READ</code> 또는 <code>WRITE</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>address</code></td>
+                        <td>string</td>
+                        <td>접근 중인 컨트랙트 스토리지</td>
+                      </tr>
+                      <tr>
+                        <td><code>key</code></td>
+                        <td>string</td>
+                        <td>스토리지 슬롯 (32바이트)</td>
+                      </tr>
+                      <tr>
+                        <td><code>value</code></td>
+                        <td>string</td>
+                        <td>읽거나 쓴 값</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">Log 객체</h4>
+
+                <figure class="code-block code-block--json">
+                  <figcaption class="code__caption">이벤트 로그 구조</figcaption>
+                  <pre class="code__pre"><code class="code__content">{
+  "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+  "topics": [
+    {"type": "data", "data": "0xddf252ad..."},
+    {"type": "address", "data": "0x88A69B4E..."},
+    {"type": "address", "data": "0xf57113D8..."}
+  ],
+  "data": [
+    {"type": "data", "data": "0x00000000...02540be400"}
+  ]
+}</code></pre>
+                </figure>
+
+                <p>
+                  <strong>일반적인 이벤트 시그니처</strong>:
+                </p>
+                <ul class="content__list">
+                  <li>
+                    <code>Transfer(address,address,uint256)</code>: ~45%
+                  </li>
+                  <li>
+                    <code>Approval(address,address,uint256)</code>: ~20%
+                  </li>
+                  <li>
+                    <code>Swap(...)</code> (Uniswap V2): ~15%
+                  </li>
+                  <li>
+                    <code>Deposit</code>: ~10%
+                  </li>
+                </ul>
+              </section>
+            </section>
+
+            <section id="section-6-4" class="report__subsection">
+              <h3 class="subsection__title">6.4 보안 사고 분석</h3>
+
+              <p>
+                데이터셋에는 4건의 실제 DeFi 보안 사고가 포함되어 있습니다. 각
+                사고의 악성 트랜잭션은 이상징후 탐지 모델 평가에 사용됩니다.
+              </p>
+
+              <div class="incident-summary">
+                <div class="incident-card incident-card--danger">
+                  <h4 class="incident-card__title">Nomad Bridge</h4>
+                  <p class="incident-card__value">$1.9억</p>
+                  <p class="incident-card__label">2022년 8월</p>
+                </div>
+                <div class="incident-card incident-card--danger">
+                  <h4 class="incident-card__title">Audius</h4>
+                  <p class="incident-card__value">$600만</p>
+                  <p class="incident-card__label">2022년 7월</p>
+                </div>
+                <div class="incident-card incident-card--danger">
+                  <h4 class="incident-card__title">SushiSwap</h4>
+                  <p class="incident-card__value">$330만</p>
+                  <p class="incident-card__label">2023년 4월</p>
+                </div>
+                <div class="incident-card incident-card--danger">
+                  <h4 class="incident-card__title">Shata Capital</h4>
+                  <p class="incident-card__value">$514만</p>
+                  <p class="incident-card__label">2023년 2월</p>
+                </div>
+                <div class="incident-card incident-card--safe">
+                  <h4 class="incident-card__title">TrustSwap</h4>
+                  <p class="incident-card__value">참조</p>
+                  <p class="incident-card__label">정상 베이스라인</p>
+                </div>
+              </div>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">
+                  6.4.1 Nomad Bridge (2022년 8월)
+                </h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">사고 개요</figcaption>
+                  <table class="data-table data-table--metrics">
+                    <tbody>
+                      <tr>
+                        <td><strong>발생일</strong></td>
+                        <td>2022년 8월 1일</td>
+                      </tr>
+                      <tr>
+                        <td><strong>피해 규모</strong></td>
+                        <td>
+                          <span class="highlight-warning">~$1억 9천만</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>공격 유형</strong></td>
+                        <td>메시지 검증 우회</td>
+                      </tr>
+                      <tr>
+                        <td><strong>근본 원인</strong></td>
+                        <td>프록시 업그레이드 시 0x00 신뢰 루트 설정</td>
+                      </tr>
+                      <tr>
+                        <td><strong>악성 트랜잭션</strong></td>
+                        <td>4건</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  Nomad의 Replica 컨트랙트 업그레이드 중 <code>confirmAt</code>
+                  매핑이 0x00 해시를 신뢰할 수 있는 루트로 설정했습니다. 이로 인해
+                  증명되지 않은 모든 메시지가 자동 승인되어 대규모 자금 유출이
+                  발생했습니다.
+                </p>
+
+                <figure class="code-block code-block--solidity">
+                  <figcaption class="code__caption">취약점 코드</figcaption>
+                  <pre class="code__pre"><code class="code__content">function initialize(
+    uint32 _remoteDomain,
+    address _updater,
+    bytes32 _committedRoot,  // 업그레이드 중 0x00으로 설정됨
+    uint256 _optimisticSeconds
+) public initializer {
+    // ...
+    confirmAt[_committedRoot] = 1;  // 0x00이 신뢰됨
+}</code></pre>
+                </figure>
+
+                <p><strong>공격 패턴 지표</strong>:</p>
+                <ul class="content__list">
+                  <li>비정상적인 루트 값을 가진 메시지</li>
+                  <li>반복되는 트랜잭션 패턴 (수신자만 변경)</li>
+                  <li>최대 유동성 인출</li>
+                  <li>다중 토큰 타입 (WBTC, WETH, USDC, USDT, DAI)</li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">
+                  6.4.2 Audius (2022년 7월)
+                </h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">사고 개요</figcaption>
+                  <table class="data-table data-table--metrics">
+                    <tbody>
+                      <tr>
+                        <td><strong>발생일</strong></td>
+                        <td>2022년 7월 23일</td>
+                      </tr>
+                      <tr>
+                        <td><strong>피해 규모</strong></td>
+                        <td>
+                          <span class="highlight-warning">~$600만</span> (18M
+                          AUDIO)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>공격 유형</strong></td>
+                        <td>스토리지 충돌 / 재초기화</td>
+                      </tr>
+                      <tr>
+                        <td><strong>근본 원인</strong></td>
+                        <td>OpenZeppelin Initializable 스토리지 충돌</td>
+                      </tr>
+                      <tr>
+                        <td><strong>악성 트랜잭션</strong></td>
+                        <td>2건</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  Audius의 프록시 컨트랙트와 OpenZeppelin의
+                  <code>Initializable</code> 컨트랙트 간에 스토리지 슬롯 0 충돌이
+                  발생했습니다. 공격자는 이미 배포된 컨트랙트에서
+                  <code>initialize()</code>를 호출하여 거버넌스를 장악하고 재무부를
+                  탈취했습니다.
+                </p>
+
+                <p><strong>공격 패턴 지표</strong>:</p>
+                <ul class="content__list">
+                  <li>배포된 컨트랙트에서 재초기화 호출</li>
+                  <li>비정상적으로 큰 투표 위임</li>
+                  <li>빠른 제안 실행</li>
+                  <li>재무부에서 직접 전송</li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">
+                  6.4.3 SushiSwap RouteProcessor2 (2023년 4월)
+                </h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">사고 개요</figcaption>
+                  <table class="data-table data-table--metrics">
+                    <tbody>
+                      <tr>
+                        <td><strong>발생일</strong></td>
+                        <td>2023년 4월 9일</td>
+                      </tr>
+                      <tr>
+                        <td><strong>피해 규모</strong></td>
+                        <td>
+                          <span class="highlight-warning">~$330만</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>공격 유형</strong></td>
+                        <td>승인 버그 / 미검증 외부 파라미터</td>
+                      </tr>
+                      <tr>
+                        <td><strong>근본 원인</strong></td>
+                        <td>RouteProcessor2의 풀 주소 검증 누락</td>
+                      </tr>
+                      <tr>
+                        <td><strong>악성 트랜잭션</strong></td>
+                        <td>2건</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  RouteProcessor2 컨트랙트가 <code>route</code> 파라미터로 제공된
+                  풀 주소를 검증하지 않아, 공격자가 가짜 풀 컨트랙트를 사용하여
+                  RouteProcessor2에 승인한 사용자의 토큰을 탈취했습니다.
+                </p>
+
+                <p><strong>공격 패턴 지표</strong>:</p>
+                <ul class="content__list">
+                  <li>검증되지 않은 풀 주소로부터의 콜백</li>
+                  <li>원래 호출자가 아닌 피해자로부터의 <code>transferFrom</code></li>
+                  <li>고액의 단일 트랜잭션</li>
+                  <li>즉각적인 토큰 변환</li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">
+                  6.4.4 Shata Capital EFVault (2023년 2월)
+                </h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">사고 개요</figcaption>
+                  <table class="data-table data-table--metrics">
+                    <tbody>
+                      <tr>
+                        <td><strong>발생일</strong></td>
+                        <td>2023년 2월 24일</td>
+                      </tr>
+                      <tr>
+                        <td><strong>피해 규모</strong></td>
+                        <td>
+                          <span class="highlight-warning">~$514만</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>공격 유형</strong></td>
+                        <td>파라미터 검증 버그</td>
+                      </tr>
+                      <tr>
+                        <td><strong>근본 원인</strong></td>
+                        <td>컨트랙트 업그레이드 후 불충분한 검증</td>
+                      </tr>
+                      <tr>
+                        <td><strong>악성 트랜잭션</strong></td>
+                        <td>2건</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  컨트랙트 업그레이드 후 도입된 파라미터 검증 취약점으로 인해
+                  공격자가 보안 검사를 우회하고 무단 자금 인출을 실행했습니다.
+                </p>
+
+                <p><strong>공격 패턴 지표</strong>:</p>
+                <ul class="content__list">
+                  <li>비정상적인 파라미터 값</li>
+                  <li>경계값 익스플로잇</li>
+                  <li>업그레이드 직후 타이밍</li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">
+                  6.4.5 TrustSwap (참조 데이터셋)
+                </h4>
+
+                <figure class="table-container">
+                  <figcaption class="table__caption">데이터셋 개요</figcaption>
+                  <table class="data-table data-table--metrics">
+                    <tbody>
+                      <tr>
+                        <td><strong>프로토콜 유형</strong></td>
+                        <td>토큰 잠금/베스팅 플랫폼</td>
+                      </tr>
+                      <tr>
+                        <td><strong>데이터셋 역할</strong></td>
+                        <td>참조/베이스라인 (해당 기간 익스플로잇 없음)</td>
+                      </tr>
+                      <tr>
+                        <td><strong>총 트랜잭션</strong></td>
+                        <td>30,146건</td>
+                      </tr>
+                      <tr>
+                        <td><strong>정상</strong></td>
+                        <td>27,024건</td>
+                      </tr>
+                      <tr>
+                        <td><strong>제외</strong></td>
+                        <td>3,122건</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+
+                <p>
+                  TrustSwap 데이터는 정상적인 DeFi 컨트랙트 상호작용의
+                  <strong>참조 베이스라인</strong>으로 사용됩니다. 다른 4개
+                  프로젝트와 달리, 이 기간 동안 익스플로잇이 없었습니다.
+                </p>
+
+                <blockquote class="note">
+                  <p class="note__label">참고</p>
+                  <p class="note__content">
+                    TrustSwap은 2024년 9월에 재진입 공격을 경험했지만, 이
+                    데이터셋은 해당 사고 이전 시점의 스냅샷입니다.
+                  </p>
+                </blockquote>
+              </section>
+            </section>
+
+            <section id="section-6-5" class="report__subsection">
+              <h3 class="subsection__title">6.5 연구자 권장사항</h3>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">ML 모델 훈련</h4>
+                <ul class="content__list">
+                  <li>
+                    <strong>주요 훈련 데이터</strong>: TrustSwap의 30K+ 정상
+                    샘플을 기반으로 훈련
+                  </li>
+                  <li>
+                    <strong>교차 검증</strong>: 다른 프로젝트의 정상 트랜잭션으로
+                    교차 검증
+                  </li>
+                  <li>
+                    <strong>클래스 불균형 주의</strong>: 극심한 불균형 (악성 10건
+                    vs 정상 38,000건)
+                  </li>
+                </ul>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">피처 엔지니어링 제안</h4>
+                <ol class="content__list">
+                  <li>
+                    <strong>콜 그래프 피처</strong>: 깊이, 너비, 콜 타입 비율
+                  </li>
+                  <li>
+                    <strong>가스 피처</strong>: 총량, 콜당 평균, 분산
+                  </li>
+                  <li>
+                    <strong>상태 피처</strong>: 읽기/쓰기 비율, 고유 스토리지 키
+                  </li>
+                  <li>
+                    <strong>주소 피처</strong>: 새 주소, 알려진 컨트랙트
+                  </li>
+                  <li>
+                    <strong>값 피처</strong>: ETH 전송량, 토큰 금액
+                  </li>
+                </ol>
+              </section>
+
+              <section class="report__subsubsection">
+                <h4 class="subsubsection__title">이상징후 탐지 접근법</h4>
+                <p>정상 트랜잭션에서 베이스라인 분포를 설정하고, 다음을 플래그:</p>
+                <ul class="content__list">
+                  <li>평균에서 2 표준편차 이상인 콜 깊이</li>
+                  <li>비정상적인 가스 사용량</li>
+                  <li>높은 상태 쓰기 비율</li>
+                  <li>비정상적인 토큰 전송 패턴</li>
+                </ul>
+              </section>
+
+              <blockquote class="theorem">
+                <p class="theorem__label"><strong>악성 트랜잭션 특성 요약</strong></p>
+                <p class="theorem__content">
+                  악성 트랜잭션의 공통 패턴: (1) 정상보다 1.5~2배 높은 가스 소비,
+                  (2) 더 깊은 콜 스택 (6~10 레벨 vs 3~5 레벨), (3) 비정상적인
+                  스토리지 수정, (4) 고액 토큰 전송, (5) 새로운 수신자 주소로의
+                  전송.
+                </p>
+              </blockquote>
             </section>
           </section>
 
