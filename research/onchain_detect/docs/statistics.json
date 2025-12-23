@@ -1,0 +1,47 @@
+{
+  "total_files": 41711,
+  "total_size_bytes": 740685392,
+  "projects": {
+    "NomadBridge": {
+      "total_files": 10460,
+      "total_size_bytes": 327977577,
+      "benign": 9915,
+      "malicious": 4,
+      "excluded": 541
+    },
+    "TrustSwap": {
+      "total_files": 30146,
+      "total_size_bytes": 390239914,
+      "benign": 27024,
+      "malicious": 0,
+      "excluded": 3122
+    },
+    "AudiusProject": {
+      "total_files": 876,
+      "total_size_bytes": 14169671,
+      "benign": 865,
+      "malicious": 2,
+      "excluded": 9
+    },
+    "SushiSwap": {
+      "total_files": 206,
+      "total_size_bytes": 4236437,
+      "benign": 199,
+      "malicious": 2,
+      "excluded": 5
+    },
+    "ShataCapital": {
+      "total_files": 23,
+      "total_size_bytes": 4061793,
+      "benign": 20,
+      "malicious": 2,
+      "excluded": 1
+    }
+  },
+  "call_types": {
+    "CALL": 7814,
+    "STATICCALL": 18734,
+    "DELEGATECALL": 11260,
+    "CREATE": 5
+  }
+}

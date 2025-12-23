@@ -1,0 +1,150 @@
+{
+  "total_files": 41711,
+  "total_size_mb": 706.3726348876953,
+  "by_project": {
+    "NomadBridge": {
+      "count": 10460,
+      "total_size_mb": 312.7837915420532,
+      "avg_call_depth": 6.8038240917782025,
+      "max_call_depth": 11,
+      "avg_total_calls": 24.61137667304015
+    },
+    "TrustSwap": {
+      "count": 30146,
+      "total_size_mb": 372.1617832183838,
+      "avg_call_depth": 4.474523983281364,
+      "max_call_depth": 9,
+      "avg_total_calls": 7.933523518874809
+    },
+    "AudiusProject": {
+      "count": 876,
+      "total_size_mb": 13.513251304626465,
+      "avg_call_depth": 4.149543378995434,
+      "max_call_depth": 6,
+      "avg_total_calls": 10.09703196347032
+    },
+    "SushiSwap": {
+      "count": 206,
+      "total_size_mb": 4.0401811599731445,
+      "avg_call_depth": 3.3300970873786406,
+      "max_call_depth": 6,
+      "avg_total_calls": 14.097087378640778
+    },
+    "ShataCapital": {
+      "count": 23,
+      "total_size_mb": 3.8736276626586914,
+      "avg_call_depth": 8.130434782608695,
+      "max_call_depth": 16,
+      "avg_total_calls": 117.1304347826087
+    }
+  },
+  "by_label": {
+    "benign": {
+      "count": 38023,
+      "avg_call_depth": 5.1906740656970785,
+      "has_create_count": 0
+    },
+    "malicious": {
+      "count": 10,
+      "avg_call_depth": 9.6,
+      "has_create_count": 1
+    },
+    "excluded": {
+      "count": 3678,
+      "avg_call_depth": 3.562805872756933,
+      "has_create_count": 5
+    }
+  },
+  "malicious_transactions": [
+    {
+      "project": "NomadBridge",
+      "file_name": "15259101-0.json",
+      "block_number": 15259101,
+      "call_depth": 11,
+      "total_calls": 30,
+      "has_create": false
+    },
+    {
+      "project": "NomadBridge",
+      "file_name": "15259303-0.json",
+      "block_number": 15259303,
+      "call_depth": 11,
+      "total_calls": 25,
+      "has_create": false
+    },
+    {
+      "project": "NomadBridge",
+      "file_name": "15259601-0.json",
+      "block_number": 15259601,
+      "call_depth": 11,
+      "total_calls": 30,
+      "has_create": false
+    },
+    {
+      "project": "NomadBridge",
+      "file_name": "15259451-0.json",
+      "block_number": 15259451,
+      "call_depth": 11,
+      "total_calls": 33,
+      "has_create": false
+    },
+    {
+      "project": "AudiusProject",
+      "file_name": "15201799-0.json",
+      "block_number": 15201799,
+      "call_depth": 5,
+      "total_calls": 8,
+      "has_create": false
+    },
+    {
+      "project": "AudiusProject",
+      "file_name": "15201800-0.json",
+      "block_number": 15201800,
+      "call_depth": 5,
+      "total_calls": 15,
+      "has_create": false
+    },
+    {
+      "project": "SushiSwap",
+      "file_name": "17007839-0.json",
+      "block_number": 17007839,
+      "call_depth": 5,
+      "total_calls": 11,
+      "has_create": true
+    },
+    {
+      "project": "SushiSwap",
+      "file_name": "17007842-0.json",
+      "block_number": 17007842,
+      "call_depth": 5,
+      "total_calls": 67,
+      "has_create": false
+    },
+    {
+      "project": "ShataCapital",
+      "file_name": "16696260-0.json",
+      "block_number": 16696260,
+      "call_depth": 16,
+      "total_calls": 239,
+      "has_create": false
+    },
+    {
+      "project": "ShataCapital",
+      "file_name": "16696240-0.json",
+      "block_number": 16696240,
+      "call_depth": 16,
+      "total_calls": 308,
+      "has_create": false
+    }
+  ],
+  "benign_vs_malicious": {
+    "benign_avg_depth": 5.1906740656970785,
+    "malicious_avg_depth": 9.6,
+    "benign_avg_calls": 12.794939904794466,
+    "malicious_avg_calls": 76.6,
+    "benign_create_pct": 0.0,
+    "malicious_create_pct": 10.0,
+    "benign_unparsed_ratio": 33.764490629216496,
+    "malicious_unparsed_ratio": 23.43173431734317
+  }
+}
